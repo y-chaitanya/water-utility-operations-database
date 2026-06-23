@@ -1,34 +1,86 @@
-# Public Utility Database Administration & Security Sandbox (Oracle / SQL)
+# SCV Water Operations Database — Learning Project
 
-🔒 **Data Security & Governance Statement**
-This repository serves as a localized, independent testing sandbox for database administration and structural engineering architectures. In strict accordance with public utility data governance protocols, **zero real customer data or proprietary system schemas are utilized here.** All database tables, customer attributes, and usage transaction logs are 100% synthetically generated for simulation, query optimization, and testing purposes only.
+A hands-on database project where I'm learning database
+administration concepts by building a water-utility
+operations database in SQL/Oracle.
 
----
+I built this to deepen my DBA skills — schema design,
+security, backup/recovery, and reporting — mapped to the
+SCV Water IT Specialist role.
 
-## 🗺️ Project Overview
-This project models a relational database management infrastructure tailored for a municipal water utility framework. The goal is to simulate daily utility operations, manage role-based data access boundaries, and implement automated data validation constraints to ensure absolute data integrity.
-
-The repository documents an active, multi-week engineering sprint focusing on backend database administration, performance optimization, and schema mapping.
-
----
-
-## 🗂️ Repository Directory
-
-Click into the directories below to view the active scripts, data models, and localized documentation for each phase:
-
-* **📂 [schema-setup](./schema-setup)**: Relational Data Definition Language (DDL) tables, primary keys, and data integrity constraints.
-* **📂 [security-and-roles](./security-and-roles)**: Data Control Language (DCL) scripts establishing isolated user privilege boundaries. (In Progress)
-* **📂 [analytics-and-queries](./analytics-and-queries)**: Relational SQL query suites executing complex utility consumption reporting. (In Progress)
+> **Note:** This is an independent learning sandbox. All
+> data is fictional and synthetically generated for
+> practice — no real customer or agency data is used.
 
 ---
 
-## 📈 Planned Development Milestones
-* **Phase 1 (Current):** Initialize core structural service schemas and data-type mappings.
-* **Phase 2:** Deploy Data Control Language (DCL) scripts to isolate read/write privileges across distinct administrative utility roles.
-* **Phase 3:** Formulate optimized relational queries utilizing `JOIN`, `GROUP BY`, and `HAVING` logic to compute multi-tiered volumetric billing statements.
+## What This Project Is
 
-* ---
+A relational database modeling a water utility's core
+operations: customers, meters, usage readings, and billing.
+I'm building it in stages, learning one area of database
+administration at a time.
 
-## 👤 Project Maintainer
-* **Developer:** Chaitanya Yarlagadda
-* **Technical Focus:** Relational Database Administration & Systems Compliance
+I have a Computer Science engineering foundation and SQL
+query experience. This project is where I'm genuinely
+building the database administration side — the install,
+security, backup, and maintenance concepts — hands-on.
+
+---
+
+## The Data Model
+
+| Table | Purpose |
+|-------|---------|
+| Customers | Account holders served by the utility |
+| Meters | Water meters linked to customers |
+| Usage_Readings | Meter readings over time |
+| Billing | Charges calculated from usage |
+
+Tables are linked with primary and foreign keys so the
+data stays consistent.
+
+---
+
+## Build Stages
+
+### Stage 1 — Schema & Data Integrity (DDL)
+Designing the tables, keys, and constraints (NOT NULL,
+CHECK, UNIQUE) so the data is clean and consistent.
+*Concepts: normalization, primary/foreign keys,
+referential integrity.*
+
+### Stage 2 — Security & Roles (DCL) — *in progress*
+Creating database roles and users with GRANT and REVOKE,
+following least-privilege (each role only gets the access
+it needs).
+*Concepts: roles vs users, GRANT/REVOKE, auditing.*
+
+### Stage 3 — Backup & Recovery — *planned*
+Practicing backups and a restore, and writing a simple
+recovery plan for if the database goes down.
+*Concepts: full vs incremental backup, point-in-time
+recovery, RPO/RTO.*
+
+### Stage 4 — Reporting & Scripts — *planned*
+Writing queries for usage reports and tiered billing using
+JOIN, GROUP BY, and HAVING.
+*Concepts: joins, aggregation, views, stored procedures.*
+
+---
+
+## Tools
+
+- **Database:** Oracle XE / SQL Server Express (free editions)
+- **Language:** SQL (DDL, DCL, DML)
+
+---
+
+## Why I'm Building This
+
+I learn best by building. Rather than only reading about
+database administration, I'm setting up a real database and
+working through each concept hands-on — the same way I
+learn any new area.
+
+*Maintainer: Chaitanya Yarlagadda*
