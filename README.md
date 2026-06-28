@@ -1,103 +1,85 @@
-# SCV Water Operations Database — Learning Sandbox
+# SCV Water Operations Database Sandbox
 
-A hands-on project where I will model a water-utility database
-to learn database administration (DBA) concepts, mapped to the
-SCV Water IT Specialist role.
+A relational database sandbox modeling local water-utility operations. It contains the schema, security configuration, automation, recovery, and monitoring scripts used to manage utility data, enforce access controls, recover from failures, and track system health — built and runnable end to end.
 
-> **Note:** This is an independent learning sandbox. All data is
-> fictional and synthetically generated for practice — no real
-> customer or agency data is used. This README is a living plan:
-> each stage moves from *planned* to *done* as I build it.
+> ⚠️ **Note:** This is a local sandbox environment. All schemas, tables, and data records are fictional and generated for development purposes.
 
 ---
 
-## Why I'm Building This
+## 📁 Project Directory Structure
 
-I have a B.Tech in Computer Science and experience with web
-application development. As I move into IT Specialist and systems
-work, I want to go beyond writing application code and understand
-the full lifecycle of data infrastructure: integrity, security,
-and recovery.
-
-My background as a licensed Enrolled Agent (EA) means I approach
-data design with a compliance-first mindset — I believe a system
-is only as trustworthy as its data integrity and its audit trail.
-
----
-
-## The Data Model (Planned)
-
-| Table | Purpose |
-|-------|---------|
-| `Customers` | Account holders and service addresses |
-| `Meters` | Water meter status and link to customers |
-| `Usage_Readings` | Time-series meter readings |
-| `Billing` | Charges calculated from usage |
-| `Audit_Log` | Traceability for data changes |
-| `System_Alerts` | Operational monitoring alerts |
-
-Tables will be linked with primary and foreign keys so the data
-stays consistent.
+```
+scv-utility-database-administration/
+├── README.md                               # Project documentation and operational guide
+├── 1_data_layer/
+│   └── 01_schema_setup.sql                 # Tables, primary/foreign keys, validation constraints, sample data
+├── 2_security_layer/
+│   └── 02_roles_and_privileges.sql         # Roles, users, least-privilege GRANT/REVOKE, permission test
+├── 3_automation_layer/
+│   └── 03_audit_and_alert_triggers.sql     # Audit-log and anomaly-alert triggers
+└── 4_operations_layer/
+    ├── 04_backup_and_recovery.sql          # Full / differential / log backups + point-in-time restore
+    ├── 05_post_refresh_validation.sql      # Post-refresh environment verification checklist
+    └── 06_capacity_monitoring.sql          # Space utilization, log growth, and performance checks
+```
 
 ---
 
-## Build Stages
+## 🗺️ Skills → SCV Water Duties
 
-### Stage 1 — Schema & Data Integrity (DDL) — *Current*
-Define the tables, primary/foreign keys, and constraints
-(NOT NULL, CHECK, UNIQUE) so the data is clean and consistent.
-*Concepts: normalization, keys, referential integrity.*
-
-### Stage 2 — Security & Roles (DCL) — *Planned*
-Create database roles and users with `GRANT`/`REVOKE`, applying
-least privilege (each role gets only the access it needs).
-*Concepts: roles vs users, GRANT/REVOKE, auditing.*
-
-### Stage 3 — Backup & Recovery — *Planned*
-Practice full and differential backups and a restore, and define
-a simple recovery plan with RPO/RTO goals.
-*Concepts: backup types, point-in-time recovery, RPO/RTO.*
-
-### Stage 4 — Reporting & Scripts — *Planned*
-Write queries and stored procedures for usage reports and tiered
-billing using `JOIN`, `GROUP BY`, and `HAVING`.
-*Concepts: joins, aggregation, views, stored procedures.*
+| Script | Demonstrates | Maps to duty |
+|--------|--------------|--------------|
+| `01_schema_setup` | Normalized schema, PK/FK, `NOT NULL`/`CHECK`/`UNIQUE` constraints | Installs/maintains SQL data servers; sets up keys and constraints |
+| `02_roles_and_privileges` | RBAC, least privilege, `GRANT`/`REVOKE`, tested permissions | Manages user accounts, roles, and privileges; audits access |
+| `03_audit_and_alert_triggers` | Event-driven audit logging and anomaly alerting | Develops, validates, and deploys scripts for database operations |
+| `04_backup_and_recovery` | Full/diff/log backups, RPO/RTO, point-in-time restore | Performs backups; develops recovery plans; restores after outages |
+| `05_post_refresh_validation` | Structural, integrity, and security verification after a refresh | Coordinates environment refreshes; performs post-refresh validation |
+| `06_capacity_monitoring` | File/log growth, capacity planning, performance health | Monitors transaction logs and growth; responds to performance issues |
 
 ---
 
-## Planned Features
+## 🏗️ Architecture & Components
 
-As the project grows, I plan to add:
+### 🔹 Data Layer — Schema & Data Integrity
+Core utility tables — `Customers`, `Meters`, `Usage_Readings`, `Billing`, `Audit_Log`, `System_Alerts` — with referential integrity and validation enforced **at the engine level** through explicit `PRIMARY KEY`, `FOREIGN KEY`, `NOT NULL`, `CHECK`, and `UNIQUE` constraints.
 
-- **Audit Log:** a trigger on the `Meters` table that records any
-  status change to `Audit_Log` with a timestamp and the user —
-  reflecting the compliance and internal-control thinking from my
-  EA and CPA study.
-- **Anomaly Alerts:** a trigger on `Usage_Readings` that flags an
-  unusually high reading (a possible leak or meter fault) into
-  `System_Alerts` for the operations team to review.
+### 🔹 Security Layer — Roles & Least Privilege
+Database roles and users configured with `GRANT`/`REVOKE` under the principle of least privilege — each role receives only the access it needs. The script also **proves enforcement** by attempting a blocked action and catching the error.
+*   *Meter Reader (Operations):* read access to meters and consumption data.
+*   *Billing Clerk:* read/maintain billing; read customer profiles.
+*   *Operations Analyst / Auditor:* review system alerts; read-only verification.
 
----
+### 🔹 Automation Layer — Triggers
+1. **Audit Log Trigger (`Meters`):** records every status change into `Audit_Log` with a timestamp and the executing system user — a compliance-first design reflecting an Enrolled Agent (EA) credential and internal-control background.
+2. **Anomaly Alerts Trigger (`Usage_Readings`):** flags unusually high readings (possible leak or meter fault) into `System_Alerts` for immediate operations review.
 
-## Tools
-
-- **Database:** SQL Server Express (in Docker on macOS)
-- **Management:** Azure Data Studio
-- **Language:** SQL (DDL, DCL, DML)
-
----
-
-## Notes & Lessons (updated as I go)
-
-I'll record what I learn at each stage here — what worked, what
-was tricky, and what I'd do differently. The goal isn't just a
-finished database; it's genuinely understanding the DBA concepts
-behind it by building them hands-on.
+### 🔹 Operations Layer — Recovery, Validation & Monitoring
+*   **Backup & Recovery:** full, differential, and transaction-log backups, with a worked **point-in-time restore** that recovers a copy of the database to the moment just before a simulated error. The recovery plan is framed around explicit **RPO** and **RTO** goals.
+*   **Post-Refresh Validation:** after copying production data down to a test environment, verifies tables, row counts, trusted foreign keys, orphaned rows, enabled constraints, and security roles.
+*   **Capacity & Performance Monitoring:** tracks data file (`.mdf`) and log file (`.ldf`) growth for proactive capacity planning, and includes indexing and expensive-query checks.
 
 ---
 
-*Work in progress. I'm building this to learn the database and
-infrastructure skills required for public-sector systems work —
-one stage at a time.*
+## 💻 Environment & Tools
+*   **Database Engine:** SQL Server Express running inside an isolated Docker container on macOS.
+*   **IDE:** Visual Studio Code using the native `mssql` extension, connected via local port `1433`.
+*   **Language:** T-SQL (Transact-SQL) — DDL (definition), DML (manipulation), and DCL (control).
 
-*Maintainer: Chaitanya Yarlagadda*
+---
+
+## ▶️ Running the Project
+Run in order against a running SQL Server container:
+1. `1_data_layer/01_schema_setup.sql` *(first — builds the database and sample data)*
+2. `2_security_layer/02_roles_and_privileges.sql`
+3. `3_automation_layer/03_audit_and_alert_triggers.sql`
+4. `4_operations_layer/06_capacity_monitoring.sql` and `05_post_refresh_validation.sql`
+
+`4_operations_layer/04_backup_and_recovery.sql` is a self-contained demonstration that intentionally alters data to show recovery — run it on its own, then re-run `01_schema_setup.sql` for pristine data. Create the backup folder once with:
+```bash
+docker exec <container> mkdir -p /var/opt/mssql/backup
+```
+
+---
+
+## 📌 About This Project
+Built as part of a deliberate, hands-on return to technology, to demonstrate the specific database administration skills this role calls for. It is a focused sandbox with synthetic data, and it continues to grow.
