@@ -97,7 +97,6 @@ Each stage was executed on the live SQL Server container. The screenshots below 
 
 ## ⚙️ Tech stack
 **SQL Server** (Express) · **T-SQL** (DDL / DML / DCL) · **Docker** on macOS · **Visual Studio Code** with the `mssql` extension
-**Local setup**: Ran SQL Server in a Docker container with the database port mapped to the local host (1433) for client access via VS Code.
 
 **Local setup:** Ran SQL Server in a Docker container with the database port mapped to the local host (`1433`) for client access via VS Code.
 
