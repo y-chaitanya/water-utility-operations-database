@@ -15,7 +15,7 @@ cron (inside container)  ──every 5 min──►  sqlcmd  ──►  EXEC dbo
                                                               │
                                                               ▼
                                                     writes a row to Maintenance_Log
-                                                    (your proof it actually ran)
+                                                    (a verifiable record that it ran)
 ```
 
 ---
@@ -79,13 +79,21 @@ Start the cron service:
 service cron start
 ```
 
-### Step 6 — Watch it actually run (your proof)
+### Step 6 — Verify it ran automatically
 Wait 5–10 minutes, then check the log file the script writes:
 ```bash
 cat /var/opt/mssql/maintenance_cron.log
 ```
-And — the real evidence — check the database log from VS Code:
+And, in the database, check the maintenance log from VS Code:
 ```sql
 SELECT * FROM dbo.Maintenance_Log ORDER BY run_at DESC;
 ```
-You'll see **new rows appearing every 5 minutes on their own**, with no one running them manually. That's the automated schedule working. **Screenshot this** — the `Maintenance_Log` rows with their timestamps a few minutes apart is your proof, exactly like the other layers.
+New rows appear every 5 minutes with no manual execution — confirming the schedule is working. The `Maintenance_Log` rows, with timestamps a few minutes apart, are the verifiable record that the maintenance ran on its own.
+
+---
+
+## Notes on this demo setup
+- **No SQL Server Agent in Express.** Express edition doesn't include SQL Server Agent, so scheduling here uses cron inside the container. On Standard/Enterprise, the same `usp_RunMaintenance` procedure would run as a one-line SQL Agent job — the skill is identical, only the scheduler differs.
+- **Credentials.** The SA password appears in the shell script for this local demo only. A production setup would use a managed identity or a secured credential store, never a plaintext password in a script.
+- **Container restarts.** Cron may need to be restarted (`service cron start`) if the container is stopped and restarted, since the base image doesn't auto-start it.
+- **Synthetic data.** As with the whole project, everything runs against synthetic sandbox data.

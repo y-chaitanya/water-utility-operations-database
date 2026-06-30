@@ -120,5 +120,3 @@ The `Maintenance_Log` table is the proof: rows appear on their own every few min
 **Automated maintenance ran on schedule**
 ![Maintenance log populated by the scheduler](../Screenshots/11_maintenance_log_scheduled_runs.png)
 *The `Maintenance_Log` table with rows added automatically by the scheduler a few minutes apart — proof the maintenance ran on its own, with no manual execution.*
-
-> 📷 **Screenshot filenames:** the two new captions point to `10_index_tuning_before_after.png` and `11_maintenance_log_scheduled_runs.png`. Save your new screenshots under those names in the `Screenshots/` folder (or rename to match your numbering) so they render on GitHub.
