@@ -1,8 +1,8 @@
-# 🌊 SCV Water Operations Database — DBA Sandbox
+# 🌊 Water Operations Sandbox
 
-**A working, end-to-end SQL Server database administration project, built to mirror the day-to-day duties of the SCV Water Information Technology Specialist role.**
+**A working, end-to-end SQL Server database administration project, built to mirror the day-to-day duties of the Water Information Technology Specialist role.**
 
-Not a tutorial copy and not a slide deck — a runnable database with schema, security, automation, recovery, monitoring, performance tuning, and scheduled maintenance, all modeled on water-utility operations and mapped directly to the job description.
+Not a tutorial copy and not a slide deck — a runnable database with schema, security, automation, recovery, monitoring, performance tuning, and scheduled maintenance, all modeled on water-utility operations.
 
 > ⚠️ **Sandbox note:** This is a local development environment. All schemas, tables, and records are fictional and synthetically generated for practice.
 
