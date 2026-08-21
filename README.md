@@ -1,52 +1,60 @@
-# 🌊 Water Operations Sandbox
+# 🌊 Water Utility Operations Database
 
-**A working, end-to-end SQL Server database administration project, built to mirror the day-to-day duties of the Water Information Technology Specialist role.**
+**A working, end-to-end SQL Server project covering requirements, schema design, security, automation, recovery, monitoring, and performance tuning — modeled on water-utility operations.**
 
-Not a tutorial copy and not a slide deck — a runnable database with schema, security, automation, recovery, monitoring, performance tuning, and scheduled maintenance, all modeled on water-utility operations.
+Not a tutorial copy and not a slide deck — a runnable database, documented from requirements through validation, with every piece executed and evidenced.
 
 > ⚠️ **Sandbox note:** This is a local development environment. All schemas, tables, and records are fictional and synthetically generated for practice.
 
 ---
 
 ## 🎯 Why I built this
-I'm returning to technology after a planned career break, and I wanted to *demonstrate* the skills this role calls for rather than only claim them. So I built the database the posting describes — from the ground up in SQL Server — and ran every piece. Everything here is something I can run, explain, and defend.
+
+I'm returning to technology after a planned career break, and I wanted to *demonstrate* these skills rather than only claim them. So I defined the requirements, designed the system, built it in SQL Server, tested it, and documented the results. Everything here is something I can run, explain, and defend.
 
 ---
 
-## 🚰 Real-World Context & Design Intent
+## 🚰 Domain context & design intent
 
-This project is modeled on a regional water utility — the **Santa Clarita Valley Water Agency (SCV Water)**, which serves a population of roughly **294,000 through about 75,000 service connections** (metered accounts) — so the schema and operations reflect a real operational domain rather than abstract examples. A "service connection" is a metered account, which is exactly what this project's `Customers` and `Meters` tables model.
+The project models a regional water utility — customers, metered service connections, readings, billing, and service requests — so the schema and operations reflect a real operational domain rather than abstract examples.
 
-**A note on scale (honest scoping):** This is a sandbox with synthetic sample data, *not* a production-scale dataset. The schema is **designed** with the relationships, keys, and data types a system would need to **scale** toward that many connections — the database-design fundamentals that keep queries efficient as data grows — but it has **not** been load-tested at that volume.
+**A note on scale (honest scoping):** This is a sandbox with synthetic sample data, *not* a production-scale dataset. The schema is **designed** with the relationships, keys, and data types a system would need to **scale** — the design fundamentals that keep queries efficient as data grows — but it has **not** been load-tested at volume.
 
-**Why these layers:** A public water agency's priorities — reliability, data protection, and planning for emergencies like droughts, fires, and earthquakes — map naturally onto core database-administration work:
+**Why these layers:** A public water agency's priorities — reliability, data protection, and readiness for emergencies like droughts, fires, and earthquakes — map naturally onto core systems work:
 
 - **Data protection & public trust** → role-based, least-privilege access (`2_security_layer/02`)
-- **Resilience & recovery** → backups and point-in-time restore, so data can be recovered to the moment before a failure (`4_operations_layer/04`)
-- **Early warning** → triggers that automatically flag abnormal readings — the same pattern used to catch a leak or usage spike early (`3_automation_layer/03`)
+- **Business continuity** → backups and point-in-time restore, recovering data to the moment before a failure (`4_operations_layer/04`)
+- **Early warning** → triggers that automatically flag abnormal readings — the pattern used to catch a leak or usage spike early (`3_automation_layer/03`)
 - **Staying healthy as data grows** → capacity monitoring, index tuning, and scheduled maintenance (`4_operations_layer/06`–`09`)
 
-The goal is to show the database-administration skills this role calls for, applied to a realistic operational context — honestly scoped as a demonstration, not a production deployment.
+The goal is to show these skills applied to a realistic operational context — honestly scoped as a demonstration, not a production deployment.
 
 ---
 
-## 🗺️ How each layer maps to the job bulletin
+## 🗺️ What each layer demonstrates
 
-- **Data Layer** (`1_data_layer/01_schema_setup.sql`) — a normalized six-table schema with primary/foreign keys and `NOT NULL` / `CHECK` / `UNIQUE` constraints enforcing integrity at the engine level.
-  → *"Installs, configures, and maintains SQL data servers... ensuring smooth and efficient database functionality."*
-- **Security Layer** (`2_security_layer/02_roles_and_privileges.sql`) — database roles and least-privilege `GRANT`/`REVOKE`, with a test that confirms a restricted role is correctly blocked.
-  → *"Manages user accounts, roles, and privileges to ensure data security; performs regular audits."*
-- **Automation Layer** (`3_automation_layer/03_audit_and_alert_triggers.sql`) — triggers that log meter status changes and flag abnormally high readings automatically.
-  → *"Develops, validates, and deploys scripts for database operations."*
-- **Operations Layer** (`4_operations_layer/04`–`09`) — full / differential / log backups with point-in-time restore, a post-refresh validation checklist, capacity & performance monitoring, query performance tuning with indexing (before/after execution plans), and routine maintenance bundled into a logged procedure that runs on a schedule.
-  → *"Performs regular database backups; develops and tests recovery plans; monitors growth and performance; develops and configures database management tools."*
+**Data Layer** (`1_data_layer/01_schema_setup.sql`)
+Functional requirements translated into a normalized six-table schema with primary/foreign keys and `NOT NULL` / `CHECK` / `UNIQUE` constraints enforcing data integrity at the engine level.
+→ *Requirements definition · data modeling · integrity rules*
+
+**Security Layer** (`2_security_layer/02_roles_and_privileges.sql`)
+Security requirements specified and implemented as database roles with least-privilege `GRANT`/`REVOKE` — including a test confirming a restricted role is correctly blocked.
+→ *Access control design · security specification · verification testing*
+
+**Automation Layer** (`3_automation_layer/03_audit_and_alert_triggers.sql`)
+Audit-trail and exception-alert logic: triggers that log meter status changes and flag abnormally high readings automatically.
+→ *Audit trail design · exception handling · compliance logging*
+
+**Operations Layer** (`4_operations_layer/04`–`09`)
+Full / differential / log backups with point-in-time restore, a post-refresh validation checklist, capacity and performance monitoring, query tuning with indexing (before/after execution plans), and routine maintenance bundled into a logged, scheduled procedure.
+→ *Business continuity planning · acceptance-style validation · performance measurement · operational documentation*
 
 ---
 
 ## 🏗️ How it's organized
 
 ```
-scv-utility-database-administration/
+water-utility-operations-database/
 ├── 1_data_layer/          → schema, keys, constraints, sample data
 ├── 2_security_layer/      → roles, users, least-privilege GRANT/REVOKE
 ├── 3_automation_layer/    → audit-log and anomaly-alert triggers
@@ -59,6 +67,7 @@ Each layer folder has its own README with a data dictionary and details.
 ---
 
 ## 🖥️ Proof it runs
+
 Each stage was executed on the live SQL Server container. The screenshots below show the results (the full set is in the `Screenshots/` folder).
 
 **Schema build**
@@ -96,6 +105,7 @@ Each stage was executed on the live SQL Server container. The screenshots below 
 ---
 
 ## ⚙️ Tech stack
+
 **SQL Server** (Express) · **T-SQL** (DDL / DML / DCL) · **Docker** on macOS · **Visual Studio Code** with the `mssql` extension
 
 **Local setup:** Ran SQL Server in a Docker container with the database port mapped to the local host (`1433`) for client access via VS Code.
@@ -103,7 +113,9 @@ Each stage was executed on the live SQL Server container. The screenshots below 
 ---
 
 ## ▶️ Run it yourself
+
 Start a SQL Server container, then run in order:
+
 1. `1_data_layer/01_schema_setup.sql` *(first — builds the database and sample data)*
 2. `2_security_layer/02_roles_and_privileges.sql`
 3. `3_automation_layer/03_audit_and_alert_triggers.sql`
@@ -118,4 +130,5 @@ Start a SQL Server container, then run in order:
 ---
 
 ## 📌 About
-Built as part of a deliberate, hands-on return to technology, to demonstrate the specific database administration skills this role requires. A focused sandbox with synthetic data — and still growing.
+
+Built as part of a deliberate, hands-on return to technology — requirements through validation, documented end to end. A focused sandbox with synthetic data, and still growing.
