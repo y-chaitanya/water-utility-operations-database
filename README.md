@@ -37,6 +37,7 @@ The goal is to show these skills applied to a realistic operational context — 
 Functional requirements translated into a normalized six-table schema with primary/foreign keys and `NOT NULL` / `CHECK` / `UNIQUE` constraints enforcing data integrity at the engine level.
 → *Requirements definition · data modeling · integrity rules*
 Documentation: [ER diagram](docs/er_diagram.md) · [Data dictionary](docs/data_dictionary.md) · [Schema review findings](docs/schema_review_findings.md)
+
 **Security Layer** (`2_security_layer/02_roles_and_privileges.sql`)
 Security requirements specified and implemented as database roles with least-privilege `GRANT`/`REVOKE` — including a test confirming a restricted role is correctly blocked.
 → *Access control design · security specification · verification testing*
@@ -54,7 +55,7 @@ Full / differential / log backups with point-in-time restore, a post-refresh val
 ## 🏗️ How it's organized
 
 ```
-swater-utility-operations-database/
+water-utility-operations-database/
 ├── 1_data_layer/          → schema, keys, constraints, sample data
 ├── 2_security_layer/      → roles, users, least-privilege GRANT/REVOKE
 ├── 3_automation_layer/    → audit-log and anomaly-alert triggers
@@ -63,7 +64,7 @@ swater-utility-operations-database/
 └── docs/                  → ER diagram, data dictionary, schema review findings
 ```
 
-Each layer folder has its own README with a data dictionary and details.
+Each layer folder has its own README with details. The full data dictionary is in `docs/`.
 
 ---
 
