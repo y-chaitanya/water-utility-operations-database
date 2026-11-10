@@ -59,8 +59,8 @@ scv-utility-database-administration/
 ├── 2_security_layer/      → roles, users, least-privilege GRANT/REVOKE
 ├── 3_automation_layer/    → audit-log and anomaly-alert triggers
 ├── 4_operations_layer/    → backups + recovery, validation, monitoring, tuning, scheduled maintenance
-├── docs/                  → ER diagram, data dictionary, schema review findings
 └── Screenshots/           → screenshots of the scripts running on the live environment
+├── docs/                  → ER diagram, data dictionary, schema review finding
 ```
 
 Each layer folder has its own README with a data dictionary and details.
